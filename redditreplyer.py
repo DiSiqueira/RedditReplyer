@@ -15,18 +15,14 @@ else:
         posts_replied_to = posts_replied_to.split("\n")
         posts_replied_to = list(filter(None, posts_replied_to))
 
-while True:
-    subreddit = reddit.subreddit('brasil')
-    for submission in subreddit.new(limit=100):
-        if submission.id not in posts_replied_to:
-            if submission.link_flair_css_class == "humor":
-                submission.reply("/r/whatsappbrasil")
-                print("Bot replying to : ", submission.title)
-                posts_replied_to.append(submission.id)
+subreddit = reddit.subreddit('brasil')
+for submission in subreddit.new(limit=100):
+    if submission.id not in posts_replied_to:
+        if submission.link_flair_css_class == "humor":
+            submission.reply("/r/whatsappbrasil")
+            print("Bot replying to : ", submission.title)
+            posts_replied_to.append(submission.id)
 
-    with open("posts_replied_to.txt", "w") as f:
-        for post_id in posts_replied_to:
-            f.write(post_id + "\n")
-
-    time.sleep(60)
-    print("")
+with open("posts_replied_to.txt", "w") as f:
+    for post_id in posts_replied_to:
+        f.write(post_id + "\n")
